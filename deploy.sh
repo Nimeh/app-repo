@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e  # Exit on error
+set -e  # Exit on erro
 echo "Starting deployment..."
 
 # Install dependencies
