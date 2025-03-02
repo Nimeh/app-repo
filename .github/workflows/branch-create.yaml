@@ -1,0 +1,20 @@
+name: Branch Created
+
+on:
+  create:
+    branches:
+      - "**"  # Runs on any branch creation
+
+jobs:
+  branch-created:
+    if: github.event.ref_type == 'branch'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Run on Branch Creation
+        run: |
+          echo "✅ A new branch '${{ github.ref }}' has been created."
+          # Add your branch creation tasks here (e.g., deploy infra, notify Slack)
+
