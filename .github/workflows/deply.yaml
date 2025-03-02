@@ -3,22 +3,30 @@ name: Branch Events
 on:
   create:
     branches:
-      - "**" # Runs on any branch creation
+      - "**"  # Runs on any branch creation
   delete:
     branches:
-      - "**" # Runs on any branch deletion
+      - "**"  # Runs on any branch deletion
 
 jobs:
   branch-created:
-    if: github.event.ref_type == 'branch'
+    if: github.event.ref_type == 'branch'  # Ensure it's a branch event
     runs-on: ubuntu-latest
     steps:
-      - name: Branch Created
-        run: echo "Branch '${{ github.ref }}' has been created!"
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Run on Branch Creation
+        run: |
+          echo "✅ A new branch '${{ github.ref }}' has been created."
+          # Add your branch creation tasks here (e.g., deploy infra, notify Slack)
 
   branch-deleted:
-    if: github.event.ref_type == 'branch'
+    if: github.event.ref_type == 'branch'  # Ensure it's a branch event
     runs-on: ubuntu-latest
     steps:
-      - name: Branch Deleted
-        run: echo "Branch '${{ github.event.ref }}' has been deleted!"
+      - name: Run on Branch Deletion
+        run: |
+          echo "❌ The branch '${{ github.event.ref }}' has been deleted."
+          # Add your branch deletion tasks here (e.g., clean up resources, remove DNS)
+
